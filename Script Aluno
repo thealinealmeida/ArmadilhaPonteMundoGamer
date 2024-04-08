@@ -1,0 +1,62 @@
+-- Função para criar obstáculos em forma de colunas ao longo da pista com uma distância fixa entre eles
+local function criarObstaculosAoLongoDaPista()
+	local alturaDasColunas =  -- Altura das colunas de obstáculos
+	local larguraDasColunas =  -- Largura das colunas de obstáculos
+	local distanciaEntreColunas =  -- Calcule a Distância entre as colunas de obstáculos
+
+	-- Obter a parte "Pista" do jogo
+	
+
+	-- Calcular a posição inicial e final da pista
+)
+
+	for i = 1, quantidadeDeColunas do
+		-- Calcular a posição ao longo da pista com uma distância fixa entre as colunas
+  
+		local posicaoColuna = 
+		-- Criar a coluna de obstáculos na posição calculada
+		
+	end
+ 
+end
+
+-- Função para criar um único obstáculo centralizado e colado na pista
+local function criarObstaculoCentralizado()
+	local alturaDoObstaculo = 10 -- Altura do obstáculo
+	local larguraDoObstaculo = 2 -- Largura do obstáculo
+
+	-- Obter a parte "Pista" do jogo
+	local pista = game.Workspace.Pista
+
+	-- Calcular a posição central da pista
+	local posicaoCentralPista = pista.Position + Vector3.new(0, 0, pista.Size.Z / 2)
+
+	-- Criar o obstáculo na posição calculada
+	local obstaculo = Instance.new("Part")
+	obstaculo.Position = posicaoCentralPista
+ --Adicione os parametros para a novo Vector
+	obstaculo.Size = Vector3.new()
+	obstaculo.Anchored = true
+	obstaculo.BrickColor = BrickColor.new("Bright red")
+	obstaculo.Parent = game.Workspace
+end
+
+-- Função chamada quando a pista é tocada
+local function onTouched(hit)
+	-- Verificar se os obstáculos ainda não foram criados e se o objeto que tocou na pista é um jogador
+	if not obstaculosCriados and hit.Parent:FindFirstChild("Humanoid") then
+		-- Se for um jogador e os obstáculos ainda não foram criados, cria os obstáculos ao longo da pista
+		local comprimentoDaPista = game.Workspace.Pista.Size.Z
+		local quantidadeDeColunas = 10
+
+  --Adicione os parametros necessários para a função 
+		criarObstaculosAoLongoDaPista()
+		-- Criar o obstáculo centralizado
+		criarObstaculoCentralizado()
+  
+		-- Definir a variável para indicar que os obstáculos já foram criados
+		
+	end
+end
+
+-- Conectar a função onTouched ao evento Touched da pista
