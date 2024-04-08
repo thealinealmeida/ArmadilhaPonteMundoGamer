@@ -8,7 +8,7 @@ local function criarObstaculosAoLongoDaPista()
 	
 
 	-- Calcular a posição inicial e final da pista
-)
+
 
 	for i = 1, quantidadeDeColunas do
 		-- Calcular a posição ao longo da pista com uma distância fixa entre as colunas
