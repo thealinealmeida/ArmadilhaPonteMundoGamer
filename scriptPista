@@ -44,9 +44,6 @@ local function criarObstaculoCentralizado()
 	obstaculo.Parent = game.Workspace
 end
 
--- Variável para controlar se os obstáculos já foram criados
-local obstaculosCriados = false
-
 -- Função chamada quando a pista é tocada
 local function onTouched(hit)
 	-- Verificar se os obstáculos ainda não foram criados e se o objeto que tocou na pista é um jogador
