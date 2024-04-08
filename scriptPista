@@ -1,0 +1,66 @@
+-- Função para criar obstáculos em forma de colunas ao longo da pista com uma distância fixa entre eles
+local function criarObstaculosAoLongoDaPista(comprimentoDaPista, quantidadeDeColunas)
+	local alturaDasColunas = 10 -- Altura das colunas de obstáculos
+	local larguraDasColunas = 2 -- Largura das colunas de obstáculos
+	local distanciaEntreColunas = comprimentoDaPista / (quantidadeDeColunas + 1) -- Distância entre as colunas de obstáculos
+
+	-- Obter a parte "Pista" do jogo
+	local pista = game.Workspace.Pista
+
+	-- Calcular a posição inicial e final da pista
+	local posicaoInicialPista = pista.Position - Vector3.new(0, 0, pista.Size.Z / 2)
+	local posicaoFinalPista = pista.Position + Vector3.new(0, 0, pista.Size.Z / 2)
+
+	for i = 1, quantidadeDeColunas do
+		-- Calcular a posição ao longo da pista com uma distância fixa entre as colunas
+		local posicaoColuna = posicaoInicialPista + Vector3.new(0, alturaDasColunas / 2, i * distanciaEntreColunas)
+		-- Criar a coluna de obstáculos na posição calculada
+		local coluna = Instance.new("Part")
+		coluna.Position = posicaoColuna
+		coluna.Size = Vector3.new(larguraDasColunas, alturaDasColunas, larguraDasColunas)
+		coluna.Anchored = true
+		coluna.BrickColor = BrickColor.new("Bright red")
+		coluna.Parent = game.Workspace
+	end
+end
+
+-- Função para criar um único obstáculo centralizado e colado na pista
+local function criarObstaculoCentralizado()
+	local alturaDoObstaculo = 10 -- Altura do obstáculo
+	local larguraDoObstaculo = 2 -- Largura do obstáculo
+
+	-- Obter a parte "Pista" do jogo
+	local pista = game.Workspace.Pista
+
+	-- Calcular a posição central da pista
+	local posicaoCentralPista = pista.Position + Vector3.new(0, 0, pista.Size.Z / 2)
+
+	-- Criar o obstáculo na posição calculada
+	local obstaculo = Instance.new("Part")
+	obstaculo.Position = posicaoCentralPista
+	obstaculo.Size = Vector3.new(larguraDoObstaculo, alturaDoObstaculo, larguraDoObstaculo)
+	obstaculo.Anchored = true
+	obstaculo.BrickColor = BrickColor.new("Bright red")
+	obstaculo.Parent = game.Workspace
+end
+
+-- Variável para controlar se os obstáculos já foram criados
+local obstaculosCriados = false
+
+-- Função chamada quando a pista é tocada
+local function onTouched(hit)
+	-- Verificar se os obstáculos ainda não foram criados e se o objeto que tocou na pista é um jogador
+	if not obstaculosCriados and hit.Parent:FindFirstChild("Humanoid") then
+		-- Se for um jogador e os obstáculos ainda não foram criados, cria os obstáculos ao longo da pista
+		local comprimentoDaPista = game.Workspace.Pista.Size.Z
+		local quantidadeDeColunas = 10
+		criarObstaculosAoLongoDaPista(comprimentoDaPista, quantidadeDeColunas)
+		-- Criar o obstáculo centralizado
+		criarObstaculoCentralizado()
+		-- Definir a variável para indicar que os obstáculos já foram criados
+		obstaculosCriados = true
+	end
+end
+
+-- Conectar a função onTouched ao evento Touched da pista
+game.Workspace.Pista.Touched:Connect(onTouched)
